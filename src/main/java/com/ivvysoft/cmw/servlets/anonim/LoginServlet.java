@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			request.getRequestDispatcher("anonimUser\\login-form.jsp").forward(request, response);
+		request.getRequestDispatcher("anonimUser\\login-form.jsp").forward(request, response);
 	}
 
 	@Override
@@ -39,10 +39,11 @@ public class LoginServlet extends HttpServlet {
 		final User user = userRepository.findByUserName(newUserName);
 
 		if (user != null) {
+			
 			if (BCrypt.checkpw(pass, user.getPassword())) {
 				HttpSession session = request.getSession();
 				session.setAttribute("user", user);
-				response.sendRedirect(request.getContextPath()+"/main");
+				response.sendRedirect(request.getContextPath() + "/main");
 
 			} else {
 				request.setAttribute("errorMessage", "Password is wrong");
@@ -52,7 +53,5 @@ public class LoginServlet extends HttpServlet {
 			request.setAttribute("errorMessage", "Username is wrong");
 			request.getRequestDispatcher("anonimUser\\login-form.jsp").forward(request, response);
 		}
-
 	}
-
 }

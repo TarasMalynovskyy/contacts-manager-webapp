@@ -26,7 +26,9 @@ public class FindPersonByIdServlet extends IsLogedInUser {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		super.doGet(request, response);
+		if (!doCheck(request, response)) {
+			return;
+		}
 		request.getRequestDispatcher("loginedUser\\find-person-by-id-form.jsp").forward(request, response);
 	}
 

@@ -23,11 +23,13 @@ public class FindPersonByNameServlet extends IsLogedInUser {
 
 	public FindPersonByNameServlet() {
 	}
-	
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		super.doGet(request, response);
+		if (!doCheck(request, response)) {
+			return;
+		}
 		request.getRequestDispatcher("loginedUser\\find-person-by-name-form.jsp").forward(request, response);
 	}
 
@@ -35,13 +37,13 @@ public class FindPersonByNameServlet extends IsLogedInUser {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html");
-		
+
 		final String firstName = request.getParameter("firstName");
 		final String lastName = request.getParameter("lastName");
 		HttpSession session = request.getSession();
 		final User user = (User) session.getAttribute("user");
 		final List<Person> persons = personRepository.findByFirstOrLastName(user, firstName, lastName);
-		
+
 		if (persons != null) {
 			request.setAttribute("persons", persons);
 			request.getRequestDispatcher("loginedUser\\find-person-by-name.jsp").forward(request, response);

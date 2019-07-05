@@ -12,21 +12,14 @@ public abstract class IsLogedInUser extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doCheck(request, response);
-	}
+	protected boolean doCheck(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doCheck(request, response);
-	}
-	
-	private void doCheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		HttpSession session = request.getSession();
 		if (session.getAttribute("user") == null) {
 			request.getRequestDispatcher("/").forward(request, response);
+			return false;
 		}
+		return true;
 	}
 }

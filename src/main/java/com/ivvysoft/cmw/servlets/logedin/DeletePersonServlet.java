@@ -25,7 +25,9 @@ public class DeletePersonServlet extends IsLogedInUser {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		super.doGet(request, response);
+		if (!doCheck(request, response)) {
+			return;
+		}
 		request.getRequestDispatcher("loginedUser\\delete-person-form.jsp").forward(request, response);
 	}
 

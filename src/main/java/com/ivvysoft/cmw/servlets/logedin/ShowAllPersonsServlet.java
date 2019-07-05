@@ -27,13 +27,15 @@ public class ShowAllPersonsServlet extends IsLogedInUser {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		super.doGet(request, response);
+		if (!doCheck(request, response)) {
+			return;
+		}
 		response.setContentType("text/html");
 		HttpSession session = request.getSession();
 		final User user = (User) session.getAttribute("user");
-		
-			final List<Person> persons = personRepository.showAll(user);
-			request.setAttribute("persons_list", persons);
-			request.getRequestDispatcher("loginedUser\\show-all-persons.jsp").forward(request, response);
+
+		final List<Person> persons = personRepository.showAll(user);
+		request.setAttribute("persons_list", persons);
+		request.getRequestDispatcher("loginedUser\\show-all-persons.jsp").forward(request, response);
 	}
 }

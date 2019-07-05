@@ -26,7 +26,10 @@ public class CreatePersonServlet extends IsLogedInUser {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		super.doGet(request, response);
+		if (!doCheck(request, response)) {
+			return;
+		}
+		System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDD");
 		request.getRequestDispatcher("loginedUser\\create-person-form.jsp").forward(request, response);
 	}
 

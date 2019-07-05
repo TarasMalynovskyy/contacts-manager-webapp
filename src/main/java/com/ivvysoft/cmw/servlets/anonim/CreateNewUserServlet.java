@@ -5,7 +5,6 @@ import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,9 +15,10 @@ import org.mindrot.jbcrypt.BCrypt;
 import com.ivvysoft.cmw.model.User;
 import com.ivvysoft.cmw.repository.UserRepository;
 import com.ivvysoft.cmw.repository.UserRepositoryImpl;
+import com.ivvysoft.cmw.servlets.logedin.IsLogedInUser;
 
 @WebServlet("/createNewUser")
-public class CreateNewUserServlet extends HttpServlet {
+public class CreateNewUserServlet extends IsLogedInUser {
 
 	private static final long serialVersionUID = 1L;
 
